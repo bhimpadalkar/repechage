@@ -1,43 +1,27 @@
 package com.rowing.coepbc.repechage;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
-import android.widget.TextView;
-
+import android.widget.EditText;
 
 public class MainActivity extends Activity {
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-    }
+  @Override
+  protected void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    setContentView(R.layout.activity_main);
+  }
 
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-        if (id == R.id.action_settings) {
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
-  public void changeText(View view) {
-    TextView name = (TextView) findViewById(R.id.text_main);
-    name.setText("Hello Bhimsen!");
+  public void proceedClicked(View view) {
+    EditText numberOfLanesView = (EditText) findViewById(R.id.number_of_lanes);
+    int numberOfLanes = Integer.parseInt(numberOfLanesView.getText().toString());
+    EditText numberOfEntriesView = (EditText) findViewById(R.id.number_of_entries);
+    int numberOfEntries = Integer.parseInt(numberOfEntriesView.getText().toString());
+    Intent intent = new Intent(this, ParticipantEntryActivity.class);
+    intent.putExtra("number_of_lanes", numberOfLanes);
+    intent.putExtra("number_of_entries", numberOfEntries);
+    startActivity(intent);
   }
 }
