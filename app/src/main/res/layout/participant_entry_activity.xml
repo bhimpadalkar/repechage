@@ -7,12 +7,13 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-  <LinearLayout
+  <ListView
       android:orientation="vertical"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:id="@+id/participant_entry">
-  </LinearLayout>
+      android:id="@+id/participant_entry"
+      android:divider="@android:color/white">
+  </ListView>
 
   <Button
       style="@style/button_style"
