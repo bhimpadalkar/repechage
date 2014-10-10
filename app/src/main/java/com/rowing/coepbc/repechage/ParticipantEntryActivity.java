@@ -22,23 +22,10 @@ public class ParticipantEntryActivity extends Activity{
 
     repechage = getIntent().getParcelableExtra("repechage_data");
     populateInputForEntries();
-
-    Button goForRoundOneButton = (Button) findViewById(R.id.go_for_round_button);
-    goForRoundOneButton.setText(String.format("%s %d",getString(R.string.go_for_round),1));
   }
 
   private void populateInputForEntries() {
-    List<String> participantsIndices = new ArrayList<String>();
-
-    for(int i = 0; i < repechage.getNumberOfEntries(); i++) {
-      participantsIndices.add(String.format("%d. ", i + 1));
-    }
-
     ListView participantsEntriesView = (ListView) findViewById(R.id.participant_entry);
-    participantsEntriesView.setAdapter(new ParticipantsArrayAdapter<String>(R.layout.single_participant_entry, participantsIndices));
-  }
-
-  public void showRacesForRound(View view) {
-
+    participantsEntriesView.setAdapter(new ParticipantsArrayAdapter<String>(this, R.layout.single_participant_entry, repechage.getNumberOfEntries()));
   }
 }

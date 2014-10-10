@@ -5,5 +5,6 @@
   <string name="proceed">Proceed</string>
   <string name="participants_activity_label">Participants</string>
   <string name="go_for_round">Go For Round</string>
+  <string name="go_for_round_one">Go For Round 1</string>
 
 </resources>

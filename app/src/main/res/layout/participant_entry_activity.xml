@@ -17,6 +17,7 @@
 
   <Button
       style="@style/button_style"
-      android:id="@+id/go_for_round_button"/>
+      android:id="@+id/go_for_round_button"
+      android:text="@string/go_for_round_one"/>
 
 </LinearLayout>
