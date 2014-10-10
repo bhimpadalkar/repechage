@@ -7,5 +7,7 @@
   <string name="go_for_round">Go For Round</string>
   <string name="go_for_round_one">Go For Round 1</string>
   <string name="round_details">Round Details</string>
+  <string name="participant_name_error">You should enter names of all the participants</string>
+  <string name="ok">OK</string>
 
 </resources>

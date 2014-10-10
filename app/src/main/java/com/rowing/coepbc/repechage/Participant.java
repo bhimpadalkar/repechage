@@ -10,4 +10,8 @@ public class Participant implements Serializable{
     this.index = index;
     this.name = name;
   }
+
+  public String getName() {
+    return name;
+  }
 }

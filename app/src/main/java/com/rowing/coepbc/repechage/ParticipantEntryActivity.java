@@ -4,13 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.ListView;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class ParticipantEntryActivity extends Activity{
 
@@ -34,6 +28,10 @@ public class ParticipantEntryActivity extends Activity{
   public void showRaces(View view) {
     for(int i = 0 ; i < repechage.getNumberOfEntries() ; i++) {
       Participant participant = (Participant) participantsEntriesView.getAdapter().getItem(i);
+      if(participant.getName().equals("")){
+        RepechageUIUtils.showErrorDialog(this, R.string.participant_name_error);
+        return;
+      }
       repechage.addParticipant(participant);
     }
     Intent intent = new Intent(this, RoundDetailsActivity.class);
