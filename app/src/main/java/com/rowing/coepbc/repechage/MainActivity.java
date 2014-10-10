@@ -19,9 +19,11 @@ public class MainActivity extends Activity {
     int numberOfLanes = Integer.parseInt(numberOfLanesView.getText().toString());
     EditText numberOfEntriesView = (EditText) findViewById(R.id.number_of_entries);
     int numberOfEntries = Integer.parseInt(numberOfEntriesView.getText().toString());
+
+    Repechage repechage = new Repechage(numberOfLanes, numberOfEntries);
+
     Intent intent = new Intent(this, ParticipantEntryActivity.class);
-    intent.putExtra("number_of_lanes", numberOfLanes);
-    intent.putExtra("number_of_entries", numberOfEntries);
+    intent.putExtra("repechage_data", repechage);
     startActivity(intent);
   }
 }

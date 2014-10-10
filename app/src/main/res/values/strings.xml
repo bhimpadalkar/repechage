@@ -4,5 +4,6 @@
   <string name="app_name">Repechage</string>
   <string name="proceed">Proceed</string>
   <string name="participants_activity_label">Participants</string>
+  <string name="go_for_round">Go For Round</string>
 
 </resources>
