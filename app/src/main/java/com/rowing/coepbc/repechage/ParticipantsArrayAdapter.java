@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import java.util.List;
@@ -29,12 +30,9 @@ public class ParticipantsArrayAdapter<T> extends ArrayAdapter {
 
   @Override
   public Object getItem(int position) {
-    return null;
-  }
-
-  @Override
-  public long getItemId(int position) {
-    return 0;
+    EditText nameView = (EditText) ((Activity) context).findViewById(position).
+        findViewById(R.id.participant_name);
+    return new Participant(position+1, nameView.getText().toString());
   }
 
   @Override
@@ -44,6 +42,7 @@ public class ParticipantsArrayAdapter<T> extends ArrayAdapter {
           .inflate(single_participant_entry_layout, null);
     }
     ((TextView)convertView.findViewById(R.id.participant_entry_index)).setText(String.format("%d. ", position + 1));
+    convertView.setId(position);
     return convertView;
   }
 }

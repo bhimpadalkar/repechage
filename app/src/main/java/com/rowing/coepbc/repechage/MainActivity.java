@@ -8,6 +8,8 @@ import android.widget.EditText;
 
 public class MainActivity extends Activity {
 
+  public static final String REPECHAGE_DATA = "repechage_data";
+
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -23,7 +25,7 @@ public class MainActivity extends Activity {
     Repechage repechage = new Repechage(numberOfLanes, numberOfEntries);
 
     Intent intent = new Intent(this, ParticipantEntryActivity.class);
-    intent.putExtra("repechage_data", repechage);
+    intent.putExtra(REPECHAGE_DATA, repechage);
     startActivity(intent);
   }
 }

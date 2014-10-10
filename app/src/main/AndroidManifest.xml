@@ -23,6 +23,11 @@
         android:label="@string/participants_activity_label">
     </activity>
 
+    <activity
+        android:name=".RoundDetailsActivity"
+        android:label="@string/round_details">
+    </activity>
+
   </application>
 
 </manifest>
