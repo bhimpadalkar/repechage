@@ -25,4 +25,12 @@ public class Repechage implements Serializable {
   public void addParticipant(Participant participant) {
     participants.add(participant);
   }
+
+  public int getNumberOfLanes() {
+    return numberOfLanes;
+  }
+
+  public List<Participant> getParticipants() {
+    return participants;
+  }
 }

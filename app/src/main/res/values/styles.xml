@@ -21,4 +21,10 @@
     <item name="android:textColor">@android:color/white</item>
   </style>
 
+  <style name="subtitle">
+    <item name="android:layout_gravity">center_horizontal</item>
+    <item name="android:textSize">20sp</item>
+    <item name="android:textColor">@color/subtitle_color</item>
+  </style>
+
 </resources>
