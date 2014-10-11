@@ -7,8 +7,10 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListAdapter;
+import android.widget.Spinner;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class RoundDetailsAdapter<T> extends ArrayAdapter {
@@ -35,16 +37,31 @@ public class RoundDetailsAdapter<T> extends ArrayAdapter {
           .inflate(race_detail_layout, null);
     }
     ((TextView)convertView.findViewById(R.id.race_number)).setText(String.format("Race %d", position + 1));
-    ((TextView)convertView.findViewById(R.id.race_details)).setText(getRaceDetail(position));
+
+    Race race = races.get(position);
+    List<Participant> participantsForRace = race.getParticipantsForRace();
+    ((TextView)convertView.findViewById(R.id.race_details)).setText(getRaceDetail(getNameOfParticipants(participantsForRace)));
+
+    Spinner winnerDropDown = (Spinner) convertView.findViewById(R.id.select_winner_dropdown);
+    ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(context, android.R.layout.simple_spinner_item, getNameOfParticipants(participantsForRace));
+    arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+    winnerDropDown.setAdapter(arrayAdapter);
+    convertView.setId(position);
     return convertView;
   }
 
-  private CharSequence getRaceDetail(int raceNumber) {
-    Race race = races.get(raceNumber);
-    List<Participant> participantsForRace = race.getParticipantsForRace();
+  private List<String> getNameOfParticipants(List<Participant> participantsForRace) {
+    List<String> namesOfParticipants = new ArrayList<String>();
+    for (Participant participant : participantsForRace) {
+      namesOfParticipants.add(participant.getName());
+    }
+    return namesOfParticipants;
+  }
+
+  private CharSequence getRaceDetail(List<String> namesOfParticipants) {
     String raceDetail = "";
-    for (int i = 0; i < participantsForRace.size(); i++) {
-      raceDetail += String.format("%d - %s\n", i+1, participantsForRace.get(i).getName());
+    for (int i = 0 ; i < namesOfParticipants.size() ; i++) {
+      raceDetail += String.format("Lane %d - %s\n", i + 1, namesOfParticipants.get(i));
     }
     return raceDetail;
   }

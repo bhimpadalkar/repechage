@@ -9,5 +9,6 @@
   <string name="round_details">Round Details</string>
   <string name="participant_name_error">You should enter names of all the participants</string>
   <string name="ok">OK</string>
+  <string name="winner">Select Winner:</string>
 
 </resources>
