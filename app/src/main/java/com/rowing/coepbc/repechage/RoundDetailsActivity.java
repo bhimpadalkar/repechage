@@ -3,16 +3,22 @@ package com.rowing.coepbc.repechage;
 import android.app.Activity;
 import android.os.Bundle;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import java.util.List;
 
 public class RoundDetailsActivity extends Activity{
+
+  public static final String ROUND_NUMBER = "round_number";
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.round_details_activity);
     Repechage repechage = (Repechage) getIntent().getSerializableExtra(MainActivity.REPECHAGE_DATA);
+    String roundNumber = getIntent().getStringExtra(ROUND_NUMBER);
+    ((TextView)findViewById(R.id.round_title)).setText(String.format("Round %s", roundNumber));
+
     populateRoundDetails(repechage);
   }
 
