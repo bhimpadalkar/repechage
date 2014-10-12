@@ -14,4 +14,14 @@ public class Race {
   public List<Participant> getParticipantsForRace() {
     return participantsForRace;
   }
+
+  public void declareResult(Participant winner) {
+    for (Participant participant : participantsForRace) {
+      if(participant.getName().equals(winner.getName())){
+        participant.setRaceStatus(ParticipantStatus.WINNER);
+      } else {
+        participant.setRaceStatus(ParticipantStatus.LOSER);
+      }
+    }
+  }
 }

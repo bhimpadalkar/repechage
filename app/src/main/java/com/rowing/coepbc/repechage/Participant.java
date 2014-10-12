@@ -5,6 +5,7 @@ import java.io.Serializable;
 public class Participant implements Serializable{
   private int index;
   private String name;
+  private ParticipantStatus raceStatus;
 
   public Participant(int index, String name) {
     this.index = index;
@@ -13,5 +14,9 @@ public class Participant implements Serializable{
 
   public String getName() {
     return name;
+  }
+
+  public void setRaceStatus(ParticipantStatus raceStatus) {
+    this.raceStatus = raceStatus;
   }
 }

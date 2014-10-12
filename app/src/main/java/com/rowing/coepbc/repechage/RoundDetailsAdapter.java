@@ -31,6 +31,13 @@ public class RoundDetailsAdapter<T> extends ArrayAdapter {
   }
 
   @Override
+  public Object getItem(int position) {
+    Spinner winnerDropDown = (Spinner) ((Activity) context).findViewById(position)
+        .findViewById(R.id.select_winner_dropdown);
+    return winnerDropDown.getSelectedItem();
+  }
+
+  @Override
   public View getView(int position, View convertView, ViewGroup parent) {
     if(convertView == null){
       convertView = ((Activity)parent.getContext()).getLayoutInflater()

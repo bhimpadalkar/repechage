@@ -10,5 +10,6 @@
   <string name="participant_name_error">You should enter names of all the participants</string>
   <string name="ok">OK</string>
   <string name="winner">Select Winner:</string>
+  <string name="next">Next</string>
 
 </resources>

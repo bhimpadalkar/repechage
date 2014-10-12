@@ -33,4 +33,12 @@ public class Repechage implements Serializable {
   public void setParticipants(List<Participant> participants) {
     this.participants = participants;
   }
+
+  public Participant getParticipantByName(String participantName) {
+    for(Participant participant : participants){
+      if(participant.getName().equals(participantName))
+        return participant;
+    }
+    return null;
+  }
 }

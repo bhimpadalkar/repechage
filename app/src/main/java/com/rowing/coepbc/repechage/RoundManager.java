@@ -10,7 +10,11 @@ public class RoundManager {
     this.repechage = repechage;
   }
 
-  public List<Race> getRacesForFirstRound() {
+  public List<Race> getRacesForRound() {
+    return getRacesForFirstRound();
+  }
+
+  private List<Race> getRacesForFirstRound() {
     List<Race> races = new ArrayList<Race>();
     int numberOfRaces = getNumberOfRaces();
     for(int i = 0 ; i < numberOfRaces ; i++){
