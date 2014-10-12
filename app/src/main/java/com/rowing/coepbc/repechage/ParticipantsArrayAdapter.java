@@ -5,11 +5,8 @@ import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.BaseAdapter;
 import android.widget.EditText;
 import android.widget.TextView;
-
-import java.util.List;
 
 public class ParticipantsArrayAdapter<T> extends ArrayAdapter {
   private int single_participant_entry_layout;
@@ -32,7 +29,7 @@ public class ParticipantsArrayAdapter<T> extends ArrayAdapter {
   public Object getItem(int position) {
     EditText nameView = (EditText) ((Activity) context).findViewById(position).
         findViewById(R.id.participant_name);
-    return new Participant(position+1, nameView.getText().toString());
+    return new Participant(nameView.getText().toString());
   }
 
   @Override

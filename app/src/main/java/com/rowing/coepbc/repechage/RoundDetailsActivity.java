@@ -11,26 +11,29 @@ import java.util.List;
 
 public class RoundDetailsActivity extends Activity{
 
-  public static final String ROUND_NUMBER = "round_number";
+  public static final String ROUND_TYPE = "round_type";
   private RoundDetailsAdapter<Race> roundDetailsAdapter;
   private List<Race> racesForRound;
   private Repechage repechage;
-  private String roundNumber;
+  private RoundType roundType;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.round_details_activity);
     repechage = (Repechage) getIntent().getSerializableExtra(MainActivity.REPECHAGE_DATA);
-    roundNumber = getIntent().getStringExtra(ROUND_NUMBER);
-    ((TextView)findViewById(R.id.round_title)).setText(String.format("Round %s", roundNumber));
-
+    roundType = (RoundType) getIntent().getSerializableExtra(ROUND_TYPE);
+    setRoundTitle();
     populateRoundDetails(repechage);
+  }
+
+  private void setRoundTitle() {
+    ((TextView)findViewById(R.id.round_title)).setText(roundType.getName());
   }
 
   private void populateRoundDetails(Repechage repechage) {
     RoundManager roundManager = new RoundManager(repechage);
-    racesForRound = roundManager.getRacesForRound();
+    racesForRound = roundManager.getRacesForRound(roundType);
     ListView roundDetailsView = (ListView) findViewById(R.id.round_detail);
     roundDetailsAdapter = new RoundDetailsAdapter<Race>(this, R.layout.race_detail_layout, racesForRound);
     roundDetailsView.setAdapter(roundDetailsAdapter);
@@ -45,9 +48,10 @@ public class RoundDetailsActivity extends Activity{
         race.declareResult(winner);
       }
     }
+    repechage.storeRacesPlayedInLastRound(racesForRound);
     Intent intent = new Intent(this, RoundDetailsActivity.class);
-    intent.putExtra(ROUND_NUMBER, "B");
     intent.putExtra(MainActivity.REPECHAGE_DATA, repechage);
+    intent.putExtra(ROUND_TYPE, RoundType.REPECHAGE);
     startActivity(intent);
   }
 }

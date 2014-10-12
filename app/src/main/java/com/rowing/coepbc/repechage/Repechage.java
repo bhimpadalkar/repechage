@@ -11,6 +11,7 @@ public class Repechage implements Serializable {
   private List<Participant> participants;
   private int numberOfLanes;
   private int numberOfEntries;
+  private List<Race> racesPlayedInLastRound;
 
   public Repechage(int numberOfLanes, int numberOfEntries) {
     this.numberOfLanes = numberOfLanes;
@@ -40,5 +41,13 @@ public class Repechage implements Serializable {
         return participant;
     }
     return null;
+  }
+
+  public void storeRacesPlayedInLastRound(List<Race> racesPlayedInLastRound) {
+    this.racesPlayedInLastRound = racesPlayedInLastRound;
+  }
+
+  public List<Race> getRacesPlayedInLastRound() {
+    return racesPlayedInLastRound;
   }
 }

@@ -43,7 +43,7 @@ public class ParticipantEntryActivity extends Activity{
     repechage.setParticipants(participantsToAdd);
     Intent intent = new Intent(this, RoundDetailsActivity.class);
     intent.putExtra(MainActivity.REPECHAGE_DATA, repechage);
-    intent.putExtra(RoundDetailsActivity.ROUND_NUMBER, "A");
+    intent.putExtra(RoundDetailsActivity.ROUND_TYPE, RoundType.HEAT);
     startActivity(intent);
   }
 }
