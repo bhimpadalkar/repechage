@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ListView;
 
 import java.util.ArrayList;
@@ -30,7 +29,7 @@ public class ParticipantEntryActivity extends Activity{
 
   private void populateInputForEntries() {
     ListView participantsEntriesView = (ListView) findViewById(R.id.participant_entry);
-    participantsArrayAdapter = new ParticipantsArrayAdapter<String>(this, R.layout.single_participant_entry, repechage.getNumberOfEntries());
+    participantsArrayAdapter = new ParticipantsArrayAdapter<String>(this, R.layout.single_participant_entry, repechage.getNumberOfEntries(), participantsEntriesView);
     participantsEntriesView.setAdapter(participantsArrayAdapter);
   }
 

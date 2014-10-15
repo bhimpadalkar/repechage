@@ -6,18 +6,19 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.TextView;
 
 public class ParticipantsArrayAdapter<T> extends ArrayAdapter {
   private int single_participant_entry_layout;
   private int size;
-  private Context context;
+  private ListView participantsEntriesView;
 
-  public ParticipantsArrayAdapter(Context context, int resource, int size) {
+  public ParticipantsArrayAdapter(Context context, int resource, int size, ListView participantsEntriesView) {
     super(context, resource);
-    this.context = context;
     this.single_participant_entry_layout = resource;
     this.size = size;
+    this.participantsEntriesView = participantsEntriesView;
   }
 
   @Override
@@ -27,8 +28,7 @@ public class ParticipantsArrayAdapter<T> extends ArrayAdapter {
 
   @Override
   public Object getItem(int position) {
-    EditText nameView = (EditText) ((Activity) context).findViewById(position).
-        findViewById(R.id.participant_name);
+    EditText nameView = (EditText) participantsEntriesView.getChildAt(position).findViewById(R.id.participant_name);
     return new Participant(nameView.getText().toString());
   }
 
@@ -39,7 +39,6 @@ public class ParticipantsArrayAdapter<T> extends ArrayAdapter {
           .inflate(single_participant_entry_layout, null);
     }
     ((TextView)convertView.findViewById(R.id.participant_entry_index)).setText(String.format("%d. ", position + 1));
-    convertView.setId(position);
     return convertView;
   }
 }
