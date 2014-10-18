@@ -1,7 +1,6 @@
-package com.rowing.coepbc.repechage;
+package com.rowing.coepbc.repechage.models;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
 public class Race implements Serializable{

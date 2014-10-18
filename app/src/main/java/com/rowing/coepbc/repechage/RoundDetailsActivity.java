@@ -7,11 +7,17 @@ import android.view.View;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.rowing.coepbc.repechage.models.Participant;
+import com.rowing.coepbc.repechage.models.Race;
+import com.rowing.coepbc.repechage.models.Repechage;
+import com.rowing.coepbc.repechage.models.RoundManager;
+import com.rowing.coepbc.repechage.models.RoundType;
+
 import java.util.List;
 
-import static com.rowing.coepbc.repechage.RoundType.FINAL;
-import static com.rowing.coepbc.repechage.RoundType.REPECHAGE;
-import static com.rowing.coepbc.repechage.RoundType.SEMI_FINAL;
+import static com.rowing.coepbc.repechage.models.RoundType.FINAL;
+import static com.rowing.coepbc.repechage.models.RoundType.REPECHAGE;
+import static com.rowing.coepbc.repechage.models.RoundType.SEMI_FINAL;
 
 public class RoundDetailsActivity extends Activity{
 

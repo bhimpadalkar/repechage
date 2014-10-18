@@ -6,6 +6,10 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ListView;
 
+import com.rowing.coepbc.repechage.models.Participant;
+import com.rowing.coepbc.repechage.models.Repechage;
+import com.rowing.coepbc.repechage.models.RoundType;
+
 import java.util.ArrayList;
 import java.util.List;
 

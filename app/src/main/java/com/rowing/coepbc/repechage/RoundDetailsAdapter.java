@@ -5,10 +5,11 @@ import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.EditText;
-import android.widget.ListAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
+
+import com.rowing.coepbc.repechage.models.Participant;
+import com.rowing.coepbc.repechage.models.Race;
 
 import java.util.ArrayList;
 import java.util.List;

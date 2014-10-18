@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 
+import com.rowing.coepbc.repechage.models.Repechage;
+
 public class MainActivity extends Activity {
 
   public static final String REPECHAGE_DATA = "repechage_data";

@@ -1,4 +1,4 @@
-package com.rowing.coepbc.repechage;
+package com.rowing.coepbc.repechage.models;
 
 import java.io.Serializable;
 

@@ -9,6 +9,8 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.rowing.coepbc.repechage.models.Participant;
+
 public class ParticipantsArrayAdapter<T> extends ArrayAdapter {
   private int single_participant_entry_layout;
   private int size;

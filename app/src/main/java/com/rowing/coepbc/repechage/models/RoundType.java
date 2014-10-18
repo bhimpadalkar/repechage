@@ -1,4 +1,4 @@
-package com.rowing.coepbc.repechage;
+package com.rowing.coepbc.repechage.models;
 
 public enum RoundType {
   HEAT("HEATS"), REPECHAGE("REPECHAGE"), SEMI_FINAL("SEMI-FINAL"), FINAL("FINAL");
