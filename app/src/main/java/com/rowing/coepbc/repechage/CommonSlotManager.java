@@ -11,7 +11,7 @@ public class CommonSlotManager {
   }
 
   protected int getNumberOfRaces() {
-    return repechage.getNumberOfEntries() / repechage.getNumberOfLanes();
+    return repechage.getNumberOfParticipantsRemaining() / repechage.getNumberOfLanes();
   }
 
   protected List<Race> getRacesForFirstRound() {
@@ -24,7 +24,7 @@ public class CommonSlotManager {
         Participant participant = repechage.getParticipants().get(i * numberOfLanes + j);
         participantsForRace.add(participant);
       }
-      races.add(new Race(i + 1, participantsForRace));
+      races.add(new Race(String.format("A%d", i+1), participantsForRace));
     }
     return races;
   }

@@ -8,7 +8,6 @@ public class Repechage implements Serializable {
   private List<Participant> participants;
   private int numberOfLanes;
   private int numberOfParticipants;
-  private List<Race> racesPlayedInLastRound;
 
   public Repechage(int numberOfLanes, int numberOfParticipants) {
     this.numberOfLanes = numberOfLanes;
@@ -59,11 +58,27 @@ public class Repechage implements Serializable {
     return null;
   }
 
-  public void storeRacesPlayedInLastRound(List<Race> racesPlayedInLastRound) {
-    this.racesPlayedInLastRound = racesPlayedInLastRound;
+  public int getNumberOfParticipantsRemaining() {
+    return participants.size();
   }
 
-  public List<Race> getRacesPlayedInLastRound() {
-    return racesPlayedInLastRound;
+  public List<Participant> getLosers() {
+    List<Participant> winnerParticipants = new ArrayList<Participant>();
+    for (Participant participant : participants) {
+      if (participant.getRaceStatus().equals(ParticipantStatus.LOSER)) {
+        winnerParticipants.add(participant);
+      }
+    }
+    return winnerParticipants;
+  }
+
+  public List<Participant> getWinners() {
+    List<Participant> winnerParticipants = new ArrayList<Participant>();
+    for (Participant participant : participants) {
+      if (participant.getRaceStatus().equals(ParticipantStatus.WINNER)) {
+        winnerParticipants.add(participant);
+      }
+    }
+    return winnerParticipants;
   }
 }

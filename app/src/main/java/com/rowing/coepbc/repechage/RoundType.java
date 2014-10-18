@@ -1,7 +1,7 @@
 package com.rowing.coepbc.repechage;
 
 public enum RoundType {
-  HEAT("HEATS"), REPECHAGE("REPECHAGE");
+  HEAT("HEATS"), REPECHAGE("REPECHAGE"), SEMI_FINAL("SEMI-FINAL"), FINAL("FINAL");
   private String name;
 
   RoundType(String name) {

@@ -43,7 +43,7 @@ public class RoundDetailsAdapter<T> extends ArrayAdapter {
       convertView = ((Activity)parent.getContext()).getLayoutInflater()
           .inflate(race_detail_layout, null);
     }
-    ((TextView)convertView.findViewById(R.id.race_number)).setText(String.format("Race %d", position + 1));
+    ((TextView)convertView.findViewById(R.id.race_number)).setText("Race " + races.get(position).getRaceID());
 
     Race race = races.get(position);
     List<Participant> participantsForRace = race.getParticipantsForRace();

@@ -5,11 +5,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Race implements Serializable{
-  private int laneNumber;
+  private String raceID;
   private List<Participant> participantsForRace;
 
-  public Race(int laneNumber, List<Participant> participantsForRace) {
-    this.laneNumber = laneNumber;
+  public Race(String raceID, List<Participant> participantsForRace) {
+    this.raceID = raceID;
     this.participantsForRace = participantsForRace;
   }
 
@@ -27,22 +27,7 @@ public class Race implements Serializable{
     }
   }
 
-  public Participant getWinner() {
-    for (Participant participant : participantsForRace) {
-      if (participant.getRaceStatus().equals(ParticipantStatus.WINNER)) {
-        return participant;
-      }
-    }
-    return null;
-  }
-
-  public List<Participant> getLosers() {
-    List<Participant> losers = new ArrayList<Participant>();
-    for (Participant participant : participantsForRace) {
-      if (participant.getRaceStatus().equals(ParticipantStatus.LOSER)) {
-        losers.add(participant);
-      }
-    }
-    return losers;
+  public String getRaceID() {
+    return raceID;
   }
 }

@@ -1,6 +1,8 @@
 package com.rowing.coepbc.repechage;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class SlotManagerForTwoLanes extends CommonSlotManager implements SlotManager{
@@ -14,28 +16,34 @@ public class SlotManagerForTwoLanes extends CommonSlotManager implements SlotMan
 
   @Override
   public List<Race> getRacesForRound(RoundType roundType) {
-    if (roundType.equals(RoundType.HEAT))
-      return getRacesForFirstRound();
-    else return getRacesForRepechage();
+    switch (roundType){
+      case HEAT:
+        return getRacesForFirstRound();
+      case REPECHAGE:
+        return getRacesForRepechage();
+      case SEMI_FINAL:
+        return getRacesForSemiFinal();
+      default:
+        return getRacesForFinal();
+    }
+  }
+
+  private List<Race> getRacesForFinal() {
+    List<Race> races = new ArrayList<Race>();
+    races.add(new Race("F1", repechage.getWinners()));
+    races.add(new Race("F2", repechage.getLosers()));
+    return races;
   }
 
   private List<Race> getRacesForRepechage() {
-    List<Race> races = new ArrayList<Race>();
-    int numberOfRaces = getNumberOfRaces();
-    List<Race> racesPlayedInLastRound = repechage.getRacesPlayedInLastRound();
-    for (int i = 0; i < numberOfRaces; i++) {
-      Race raceToSelectLastWinner = racesPlayedInLastRound.get(i);
-      Participant winnerInLastRound = raceToSelectLastWinner.getWinner();
+    return getRacesForSemiFinal();
+  }
 
-      Race raceToSelectLastLosers = racesPlayedInLastRound.get((i + 1) % numberOfRaces);
-      List<Participant> losersInLastRound = raceToSelectLastLosers.getLosers();
-      List<Participant> participantsForRace = new ArrayList<Participant>();
-      participantsForRace.add(winnerInLastRound);
-      for (Participant participant : losersInLastRound) {
-        participantsForRace.add(participant);
-      }
-      races.add(new Race(i+1, participantsForRace));
-    }
+  private List<Race> getRacesForSemiFinal() {
+    List<Race> races = new ArrayList<Race>();
+    List<Participant> participants = repechage.getParticipants();
+    races.add(new Race("B1", Arrays.asList(participants.get(0), participants.get(3))));
+    races.add(new Race("B2", Arrays.asList(participants.get(1), participants.get(2))));
     return races;
   }
 
