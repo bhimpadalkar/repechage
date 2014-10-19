@@ -18,6 +18,8 @@ public class RoundManagerForTwoLanes extends CommonRoundManager implements Round
     switch (roundType){
       case HEAT:
         return getRacesForFirstRound();
+      case REPECHAGE_FIRST:
+        return getRacesForFirstRepechage();
       case REPECHAGE:
         return getRacesForRepechage();
       case SEMI_FINAL:
@@ -27,18 +29,19 @@ public class RoundManagerForTwoLanes extends CommonRoundManager implements Round
     }
   }
 
-  private List<Race> getRacesForFinal() {
-    List<Race> races = new ArrayList<Race>();
-    races.add(new Race("F1", repechage.getParticipantsByStatus(ParticipantStatus.WINNER)));
-    races.add(new Race("F2", repechage.getParticipantsByStatus(ParticipantStatus.LOSER)));
-    return races;
-  }
-
-  private List<Race> getRacesForRepechage() {
+  private List<Race> getRacesForFirstRepechage() {
     List<Participant> participants = new ArrayList<Participant>();
     participants.addAll(repechage.getParticipantsByStatus(ParticipantStatus.WINNER));
     participants.addAll(repechage.getParticipantsByStatus(ParticipantStatus.LOSER));
     return getRacesSequentially(participants, "B");
+  }
+
+  private List<Race> getRacesForRepechage() {
+    List<Participant> participants = new ArrayList<Participant>();
+    for (int i = repechage.getMaxNumberOfPoints(); i > 0; i--) {
+       participants.addAll(repechage.getParticipantsByPoints(i));
+    }
+    return getRacesSequentially(participants, "C");
   }
 
   private List<Race> getRacesForSemiFinal() {
@@ -51,7 +54,10 @@ public class RoundManagerForTwoLanes extends CommonRoundManager implements Round
     return races;
   }
 
-  public List<Race> getRacesForFirstRound() {
-    return super.getRacesForFirstRound();
+  private List<Race> getRacesForFinal() {
+    List<Race> races = new ArrayList<Race>();
+    races.add(new Race("F1", repechage.getParticipantsByStatus(ParticipantStatus.WINNER)));
+    races.add(new Race("F2", repechage.getParticipantsByStatus(ParticipantStatus.LOSER)));
+    return races;
   }
 }

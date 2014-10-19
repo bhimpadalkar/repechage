@@ -21,6 +21,7 @@ import java.util.List;
 import static com.rowing.coepbc.repechage.models.RoundType.FINAL;
 import static com.rowing.coepbc.repechage.models.RoundType.HEAT;
 import static com.rowing.coepbc.repechage.models.RoundType.REPECHAGE;
+import static com.rowing.coepbc.repechage.models.RoundType.REPECHAGE_FIRST;
 import static com.rowing.coepbc.repechage.models.RoundType.SEMI_FINAL;
 
 public class RoundDetailsActivity extends Activity{
@@ -70,6 +71,29 @@ public class RoundDetailsActivity extends Activity{
 
   public void proceedForNextRound(View view) {
     if(roundType == FINAL) return;
+    saveRaceResult();
+
+    RoundType typeOfNextRound;
+    switch (roundType){
+      case HEAT:
+        if(repechage.getNumberOfParticipantsRemaining() == 4) typeOfNextRound = SEMI_FINAL;
+        else typeOfNextRound = REPECHAGE_FIRST;
+        break;
+      case REPECHAGE_FIRST:
+      case REPECHAGE:
+        if(repechage.getNumberOfParticipantsRemaining() == 4) typeOfNextRound = SEMI_FINAL;
+        else typeOfNextRound = REPECHAGE;
+        break;
+      default:
+        typeOfNextRound = FINAL;
+    }
+    Intent intent = new Intent(this, RoundDetailsActivity.class);
+    intent.putExtra(MainActivity.REPECHAGE_DATA, repechage);
+    intent.putExtra(ROUND_TYPE, typeOfNextRound);
+    startActivity(intent);
+  }
+
+  private void saveRaceResult() {
     for (int i = 0; i < racesForRound.size(); i++) {
       Race race = racesForRound.get(i);
       String winnerName = (String) roundDetailsAdapter.getItem(i);
@@ -80,19 +104,5 @@ public class RoundDetailsActivity extends Activity{
     }
     if((roundType != HEAT) && (roundType != SEMI_FINAL)) repechage.eliminateLosers();
     repechage.updateParticipants();
-    Intent intent = new Intent(this, RoundDetailsActivity.class);
-    intent.putExtra(MainActivity.REPECHAGE_DATA, repechage);
-    RoundType typeOfNextRound;
-    switch (roundType){
-      case HEAT:
-      case REPECHAGE:
-        if(repechage.getNumberOfParticipantsRemaining() == 4) typeOfNextRound = SEMI_FINAL;
-        else typeOfNextRound = REPECHAGE;
-        break;
-      default:
-        typeOfNextRound = FINAL;
-    }
-    intent.putExtra(ROUND_TYPE, typeOfNextRound);
-    startActivity(intent);
   }
 }

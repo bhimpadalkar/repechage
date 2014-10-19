@@ -2,6 +2,7 @@ package com.rowing.coepbc.repechage.models;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 public class Repechage implements Serializable {
@@ -67,6 +68,16 @@ public class Repechage implements Serializable {
     return participantList;
   }
 
+  public List<Participant> getParticipantsByPoints(int points) {
+    List<Participant> participantList = new ArrayList<Participant>();
+    for (Participant participant : participants) {
+      if (participant.points() == points) {
+        participantList.add(participant);
+      }
+    }
+    return participantList;
+  }
+
   public int getNumberOfParticipantsRemaining() {
     int remainingParticipants = 0;
     for (Participant participant : participants) {
@@ -91,5 +102,9 @@ public class Repechage implements Serializable {
         participant.setRaceStatus(ParticipantStatus.ELIMINATED);
       }
     }
+  }
+
+  public int getMaxNumberOfPoints() {
+    return participants.get(0).points();
   }
 }
