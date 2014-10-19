@@ -40,9 +40,11 @@ public class SlotManagerForTwoLanes extends CommonSlotManager implements SlotMan
 
   private List<Race> getRacesForSemiFinal() {
     List<Race> races = new ArrayList<Race>();
-    List<Participant> participants = repechage.getParticipants();
-    races.add(new Race("B1", Arrays.asList(participants.get(0), participants.get(3))));
-    races.add(new Race("B2", Arrays.asList(participants.get(1), participants.get(2))));
+    List<Participant> participants = new ArrayList<Participant>();
+    participants.addAll(repechage.getWinners());
+    participants.addAll(repechage.getLosers());
+    races.add(new Race("SF1", Arrays.asList(participants.get(0), participants.get(3))));
+    races.add(new Race("SF2", Arrays.asList(participants.get(1), participants.get(2))));
     return races;
   }
 
