@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -18,12 +19,17 @@ public class RoundDetailsAdapter<T> extends ArrayAdapter {
   private Context context;
   private int race_detail_layout;
   private List<Race> races;
+  private List<String> winnersList = new ArrayList<String>();
 
   public RoundDetailsAdapter(Context context, int race_detail_layout, List<Race> races) {
     super(context, race_detail_layout);
     this.context = context;
     this.race_detail_layout = race_detail_layout;
     this.races = races;
+    for (Race race : races) {
+      winnersList.add(race.getParticipantsForRace().get(0).getName());
+    }
+
   }
 
   @Override
@@ -33,13 +39,11 @@ public class RoundDetailsAdapter<T> extends ArrayAdapter {
 
   @Override
   public Object getItem(int position) {
-    Spinner winnerDropDown = (Spinner) ((Activity) context).findViewById(position)
-        .findViewById(R.id.select_winner_dropdown);
-    return winnerDropDown.getSelectedItem();
+    return winnersList.get(position);
   }
 
   @Override
-  public View getView(int position, View convertView, ViewGroup parent) {
+  public View getView(final int position, View convertView, ViewGroup parent) {
     if(convertView == null){
       convertView = ((Activity)parent.getContext()).getLayoutInflater()
           .inflate(race_detail_layout, null);
@@ -48,13 +52,24 @@ public class RoundDetailsAdapter<T> extends ArrayAdapter {
 
     Race race = races.get(position);
     List<Participant> participantsForRace = race.getParticipantsForRace();
-    ((TextView)convertView.findViewById(R.id.race_details)).setText(getRaceDetail(getNameOfParticipants(participantsForRace)));
+    List<String> nameOfParticipants = getNameOfParticipants(participantsForRace);
+    ((TextView)convertView.findViewById(R.id.race_details)).setText(getRaceDetail(nameOfParticipants));
 
-    Spinner winnerDropDown = (Spinner) convertView.findViewById(R.id.select_winner_dropdown);
-    ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(context, android.R.layout.simple_spinner_item, getNameOfParticipants(participantsForRace));
+    final Spinner winnerDropDown = (Spinner) convertView.findViewById(R.id.select_winner_dropdown);
+    ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(context, android.R.layout.simple_spinner_item, nameOfParticipants);
     arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
     winnerDropDown.setAdapter(arrayAdapter);
-    convertView.setId(position);
+    winnerDropDown.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+      @Override
+      public void onItemSelected(AdapterView<?> parent, View view, int i, long id) {
+        winnersList.set(position, ((TextView)view).getText().toString());
+      }
+
+      @Override
+      public void onNothingSelected(AdapterView<?> parent) {
+
+      }
+    });
     return convertView;
   }
 

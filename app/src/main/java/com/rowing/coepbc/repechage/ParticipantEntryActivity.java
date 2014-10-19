@@ -33,7 +33,7 @@ public class ParticipantEntryActivity extends Activity{
 
   private void populateInputForEntries() {
     ListView participantsEntriesView = (ListView) findViewById(R.id.participant_entry);
-    participantsArrayAdapter = new ParticipantsArrayAdapter<String>(this, R.layout.single_participant_entry, repechage.getNumberOfEntries(), participantsEntriesView);
+    participantsArrayAdapter = new ParticipantsArrayAdapter<String>(this, R.layout.single_participant_entry, repechage.getNumberOfEntries());
     participantsEntriesView.setAdapter(participantsArrayAdapter);
   }
 
