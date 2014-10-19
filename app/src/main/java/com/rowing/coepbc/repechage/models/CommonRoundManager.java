@@ -22,4 +22,12 @@ public abstract class CommonRoundManager {
     }
     return races;
   }
+
+  protected List<Race> getRacesAlternately(List<Participant> participants, String roundName) {
+    List<Race> races = new ArrayList<Race>();
+    for (int i = 0; i < participants.size()/2; i++) {
+      races.add(new Race(roundName+(i+1), Arrays.asList(participants.get(i), participants.get(i+2))));
+    }
+    return races;
+  }
 }

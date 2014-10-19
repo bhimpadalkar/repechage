@@ -18,6 +18,7 @@ public class Participant implements Serializable{
   public void setRaceStatus(ParticipantStatus raceStatus) {
     this.raceStatus = raceStatus;
     if(raceStatus == ParticipantStatus.WINNER) points++;
+    else points--;
   }
 
   public ParticipantStatus getRaceStatus() {
