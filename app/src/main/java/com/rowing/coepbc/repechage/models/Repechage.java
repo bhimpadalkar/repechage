@@ -5,14 +5,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Repechage implements Serializable {
-  private List<Participant> participants;
+  private List<Participant> participants = new ArrayList<Participant>();
   private int numberOfLanes;
   private int numberOfParticipants;
 
   public Repechage(int numberOfLanes, int numberOfParticipants) {
     this.numberOfLanes = numberOfLanes;
     this.numberOfParticipants = numberOfParticipants;
-    this.participants = new ArrayList<Participant>();
   }
 
   public int getNumberOfEntries() {
@@ -58,6 +57,16 @@ public class Repechage implements Serializable {
     return null;
   }
 
+  public List<Participant> getParticipantsByStatus(ParticipantStatus participantStatus) {
+    List<Participant> participantList = new ArrayList<Participant>();
+    for (Participant participant : participants) {
+      if (participant.getRaceStatus().equals(participantStatus)) {
+        participantList.add(participant);
+      }
+    }
+    return participantList;
+  }
+
   public int getNumberOfParticipantsRemaining() {
     int remainingParticipants = 0;
     for (Participant participant : participants) {
@@ -68,24 +77,12 @@ public class Repechage implements Serializable {
     return remainingParticipants;
   }
 
-  public List<Participant> getLosers() {
-    List<Participant> loserParticipants = new ArrayList<Participant>();
-    for (Participant participant : participants) {
-      if (participant.getRaceStatus().equals(ParticipantStatus.LOSER)) {
-        loserParticipants.add(participant);
-      }
-    }
-    return loserParticipants;
-  }
-
-  public List<Participant> getWinners() {
-    List<Participant> winnerParticipants = new ArrayList<Participant>();
-    for (Participant participant : participants) {
-      if (participant.getRaceStatus().equals(ParticipantStatus.WINNER)) {
-        winnerParticipants.add(participant);
-      }
-    }
-    return winnerParticipants;
+  public void updateParticipants() {
+    List<Participant> newListOfParticipants = new ArrayList<Participant>();
+    newListOfParticipants.addAll(getParticipantsByStatus(ParticipantStatus.WINNER));
+    newListOfParticipants.addAll(getParticipantsByStatus(ParticipantStatus.LOSER));
+    newListOfParticipants.addAll(getParticipantsByStatus(ParticipantStatus.ELIMINATED));
+    this.participants = newListOfParticipants;
   }
 
   public void eliminateLosers() {
