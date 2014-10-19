@@ -5,6 +5,7 @@ import java.io.Serializable;
 public class Participant implements Serializable{
   private String name;
   private ParticipantStatus raceStatus;
+  private int chancesRemaining = 2;
 
   public Participant(String name) {
     this.name = name;
@@ -20,5 +21,13 @@ public class Participant implements Serializable{
 
   public ParticipantStatus getRaceStatus() {
     return raceStatus;
+  }
+
+  public void reduceRemainingChances() {
+    chancesRemaining--;
+  }
+
+  public int chancesRemaining() {
+    return chancesRemaining;
   }
 }

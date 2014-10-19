@@ -77,6 +77,7 @@ public class RoundDetailsActivity extends Activity{
         race.declareResult(winner);
       }
     }
+    repechage.eliminateLosers();
     Intent intent = new Intent(this, RoundDetailsActivity.class);
     intent.putExtra(MainActivity.REPECHAGE_DATA, repechage);
     RoundType typeOfNextRound;

@@ -59,17 +59,23 @@ public class Repechage implements Serializable {
   }
 
   public int getNumberOfParticipantsRemaining() {
-    return participants.size();
+    int remainingParticipants = 0;
+    for (Participant participant : participants) {
+      if (!participant.getRaceStatus().equals(ParticipantStatus.ELIMINATED)) {
+        remainingParticipants++;
+      }
+    }
+    return remainingParticipants;
   }
 
   public List<Participant> getLosers() {
-    List<Participant> winnerParticipants = new ArrayList<Participant>();
+    List<Participant> loserParticipants = new ArrayList<Participant>();
     for (Participant participant : participants) {
       if (participant.getRaceStatus().equals(ParticipantStatus.LOSER)) {
-        winnerParticipants.add(participant);
+        loserParticipants.add(participant);
       }
     }
-    return winnerParticipants;
+    return loserParticipants;
   }
 
   public List<Participant> getWinners() {
@@ -80,5 +86,13 @@ public class Repechage implements Serializable {
       }
     }
     return winnerParticipants;
+  }
+
+  public void eliminateLosers() {
+    for (Participant participant : participants) {
+      if (participant.chancesRemaining() == 0) {
+        participant.setRaceStatus(ParticipantStatus.ELIMINATED);
+      }
+    }
   }
 }

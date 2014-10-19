@@ -22,6 +22,7 @@ public class Race implements Serializable{
         participant.setRaceStatus(ParticipantStatus.WINNER);
       } else {
         participant.setRaceStatus(ParticipantStatus.LOSER);
+        participant.reduceRemainingChances();
       }
     }
   }

@@ -35,7 +35,10 @@ public class RoundManagerForTwoLanes extends CommonRoundManager implements Round
   }
 
   private List<Race> getRacesForRepechage() {
-    return getRacesForSemiFinal();
+    List<Participant> participants = new ArrayList<Participant>();
+    participants.addAll(repechage.getWinners());
+    participants.addAll(repechage.getLosers());
+    return getRacesSequentially(participants, "B");
   }
 
   private List<Race> getRacesForSemiFinal() {
