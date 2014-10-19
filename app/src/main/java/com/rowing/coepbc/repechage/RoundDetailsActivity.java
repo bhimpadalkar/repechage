@@ -19,6 +19,7 @@ import com.rowing.coepbc.repechage.models.RoundType;
 import java.util.List;
 
 import static com.rowing.coepbc.repechage.models.RoundType.FINAL;
+import static com.rowing.coepbc.repechage.models.RoundType.HEAT;
 import static com.rowing.coepbc.repechage.models.RoundType.REPECHAGE;
 import static com.rowing.coepbc.repechage.models.RoundType.SEMI_FINAL;
 
@@ -77,7 +78,7 @@ public class RoundDetailsActivity extends Activity{
         race.declareResult(winner);
       }
     }
-    if(!(roundType == SEMI_FINAL)) repechage.eliminateLosers();
+    if((roundType != HEAT) && (roundType != SEMI_FINAL)) repechage.eliminateLosers();
     repechage.updateParticipants();
     Intent intent = new Intent(this, RoundDetailsActivity.class);
     intent.putExtra(MainActivity.REPECHAGE_DATA, repechage);

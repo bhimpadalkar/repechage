@@ -5,7 +5,7 @@ import java.io.Serializable;
 public class Participant implements Serializable{
   private String name;
   private ParticipantStatus raceStatus;
-  private int chancesRemaining = 2;
+  private int points = 0;
 
   public Participant(String name) {
     this.name = name;
@@ -17,17 +17,14 @@ public class Participant implements Serializable{
 
   public void setRaceStatus(ParticipantStatus raceStatus) {
     this.raceStatus = raceStatus;
+    if(raceStatus == ParticipantStatus.WINNER) points++;
   }
 
   public ParticipantStatus getRaceStatus() {
     return raceStatus;
   }
 
-  public void reduceRemainingChances() {
-    chancesRemaining--;
-  }
-
-  public int chancesRemaining() {
-    return chancesRemaining;
+  public int points() {
+    return points;
   }
 }

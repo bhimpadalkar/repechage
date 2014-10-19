@@ -87,7 +87,7 @@ public class Repechage implements Serializable {
 
   public void eliminateLosers() {
     for (Participant participant : participants) {
-      if (participant.chancesRemaining() == 0) {
+      if (participant.points() == 0) {
         participant.setRaceStatus(ParticipantStatus.ELIMINATED);
       }
     }
