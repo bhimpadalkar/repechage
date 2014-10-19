@@ -3,10 +3,10 @@ package com.rowing.coepbc.repechage.models;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CommonSlotManager {
+public abstract class CommonRoundManager {
   private Repechage repechage;
 
-  public CommonSlotManager(Repechage repechage) {
+  public CommonRoundManager(Repechage repechage) {
     this.repechage = repechage;
   }
 

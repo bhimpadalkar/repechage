@@ -2,11 +2,11 @@ package com.rowing.coepbc.repechage.models;
 
 import java.util.List;
 
-public class SlotManagerForFourLanes extends CommonSlotManager implements SlotManager {
+public class RoundManagerForThreeLanes extends CommonRoundManager implements RoundManager {
 
   private Repechage repechage;
 
-  public SlotManagerForFourLanes(Repechage repechage) {
+  public RoundManagerForThreeLanes(Repechage repechage) {
     super(repechage);
     this.repechage = repechage;
   }

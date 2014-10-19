@@ -11,6 +11,9 @@ import com.rowing.coepbc.repechage.models.Participant;
 import com.rowing.coepbc.repechage.models.Race;
 import com.rowing.coepbc.repechage.models.Repechage;
 import com.rowing.coepbc.repechage.models.RoundManager;
+import com.rowing.coepbc.repechage.models.RoundManagerForFourLanes;
+import com.rowing.coepbc.repechage.models.RoundManagerForThreeLanes;
+import com.rowing.coepbc.repechage.models.RoundManagerForTwoLanes;
 import com.rowing.coepbc.repechage.models.RoundType;
 
 import java.util.List;
@@ -26,7 +29,6 @@ public class RoundDetailsActivity extends Activity{
   private List<Race> racesForRound;
   private Repechage repechage;
   private RoundType roundType;
-  private RoundManager roundManager;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -39,19 +41,30 @@ public class RoundDetailsActivity extends Activity{
     repechage = (Repechage) getIntent().getSerializableExtra(MainActivity.REPECHAGE_DATA);
     roundType = (RoundType) getIntent().getSerializableExtra(ROUND_TYPE);
     setRoundTitle();
-    populateRoundDetails(repechage);
+    populateRoundDetails();
   }
 
   private void setRoundTitle() {
     ((TextView)findViewById(R.id.round_title)).setText(roundType.getName());
   }
 
-  private void populateRoundDetails(Repechage repechage) {
-    roundManager = new RoundManager(repechage);
+  private void populateRoundDetails() {
+    RoundManager roundManager = decideRoundManagerType();
     racesForRound = roundManager.getRacesForRound(roundType);
     ListView roundDetailsView = (ListView) findViewById(R.id.round_detail);
     roundDetailsAdapter = new RoundDetailsAdapter<Race>(this, R.layout.race_detail_layout, racesForRound);
     roundDetailsView.setAdapter(roundDetailsAdapter);
+  }
+
+  private RoundManager decideRoundManagerType() {
+    switch (repechage.getNumberOfLanes()){
+      case 2:
+        return new RoundManagerForTwoLanes(repechage);
+      case 3:
+        return new RoundManagerForThreeLanes(repechage);
+      default:
+        return new RoundManagerForFourLanes(repechage);
+    }
   }
 
   public void proceedForNextRound(View view) {

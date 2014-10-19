@@ -4,11 +4,11 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class SlotManagerForTwoLanes extends CommonSlotManager implements SlotManager{
+public class RoundManagerForTwoLanes extends CommonRoundManager implements RoundManager {
 
   private Repechage repechage;
 
-  public SlotManagerForTwoLanes(Repechage repechage) {
+  public RoundManagerForTwoLanes(Repechage repechage) {
     super(repechage);
     this.repechage = repechage;
   }
