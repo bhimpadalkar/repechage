@@ -62,13 +62,11 @@ public class RoundDetailsAdapter<T> extends ArrayAdapter {
     winnerDropDown.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
       @Override
       public void onItemSelected(AdapterView<?> parent, View view, int i, long id) {
-        winnersList.set(position, ((TextView)view).getText().toString());
+        winnersList.set(position, parent.getSelectedItem().toString());
       }
 
       @Override
-      public void onNothingSelected(AdapterView<?> parent) {
-
-      }
+      public void onNothingSelected(AdapterView<?> parent) {}
     });
     return convertView;
   }
