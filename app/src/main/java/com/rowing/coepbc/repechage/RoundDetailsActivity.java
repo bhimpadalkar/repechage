@@ -27,7 +27,7 @@ import static com.rowing.coepbc.repechage.models.RoundType.SEMI_FINAL;
 public class RoundDetailsActivity extends Activity{
 
   public static final String ROUND_TYPE = "round_type";
-  private RoundDetailsAdapter<Race> roundDetailsAdapter;
+  private RoundDetailsAdapter roundDetailsAdapter;
   private List<Race> racesForRound;
   private Repechage repechage;
   private RoundType roundType;
@@ -54,7 +54,7 @@ public class RoundDetailsActivity extends Activity{
     RoundManager roundManager = decideRoundManagerType();
     racesForRound = roundManager.getRacesForRound(roundType);
     ListView roundDetailsView = (ListView) findViewById(R.id.round_detail);
-    roundDetailsAdapter = new RoundDetailsAdapter<Race>(this, R.layout.race_detail_layout, racesForRound);
+    roundDetailsAdapter = new RoundDetailsAdapter(this, R.layout.race_detail_layout, racesForRound);
     roundDetailsView.setAdapter(roundDetailsAdapter);
   }
 
