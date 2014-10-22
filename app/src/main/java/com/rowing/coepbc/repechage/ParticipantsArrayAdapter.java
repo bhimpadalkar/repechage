@@ -45,7 +45,9 @@ public class ParticipantsArrayAdapter<T> extends ArrayAdapter {
           .inflate(single_participant_entry_layout, null);
     }
     ((TextView)convertView.findViewById(R.id.participant_entry_index)).setText(String.format("%d. ", position + 1));
-    convertView.findViewById(R.id.participant_name).setOnFocusChangeListener(new View.OnFocusChangeListener() {
+    EditText nameView = (EditText) convertView.findViewById(R.id.participant_name);
+    nameView.setText(participantsList.get(position));
+    nameView.setOnFocusChangeListener(new View.OnFocusChangeListener() {
       @Override
       public void onFocusChange(View v, boolean hasFocus) {
         participantsList.set(position, ((EditText) v).getText().toString());
