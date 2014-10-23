@@ -2,6 +2,8 @@ package com.rowing.coepbc.repechage;
 
 import android.app.Activity;
 import android.content.Context;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -47,12 +49,26 @@ public class ParticipantsArrayAdapter<T> extends ArrayAdapter {
     ((TextView)convertView.findViewById(R.id.participant_entry_index)).setText(String.format("%d. ", position + 1));
     EditText nameView = (EditText) convertView.findViewById(R.id.participant_name);
     nameView.setText(participantsList.get(position));
-    nameView.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-      @Override
-      public void onFocusChange(View v, boolean hasFocus) {
-        participantsList.set(position, ((EditText) v).getText().toString());
-      }
-    });
+    nameView.addTextChangedListener(getTextChangeListener(position));
     return convertView;
+  }
+
+  private TextWatcher getTextChangeListener(final int position) {
+    return new TextWatcher() {
+      @Override
+      public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+      }
+
+      @Override
+      public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+      }
+
+      @Override
+      public void afterTextChanged(Editable s) {
+        participantsList.set(position, s.toString());
+      }
+    };
   }
 }
