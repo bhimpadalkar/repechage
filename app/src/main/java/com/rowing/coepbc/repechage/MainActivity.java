@@ -39,10 +39,13 @@ public class MainActivity extends Activity {
     switch (numberOfLanes){
       case 2:
         promptMaxEntries(numberOfLanes, numberOfEntries, Repechage.MAX_ENTRIES_2_LANES);
+        break;
       case 3:
         promptMaxEntries(numberOfLanes, numberOfEntries, Repechage.MAX_ENTRIES_3_LANES);
+        break;
       case 4:
         promptMaxEntries(numberOfLanes, numberOfEntries, Repechage.MAX_ENTRIES_4_LANES);
+        break;
     }
   }
 
