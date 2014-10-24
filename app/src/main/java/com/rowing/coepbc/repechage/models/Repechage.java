@@ -6,6 +6,9 @@ import java.util.Collection;
 import java.util.List;
 
 public class Repechage implements Serializable {
+  public static final int MAX_ENTRIES_2_LANES = 16;
+  public static final int MAX_ENTRIES_3_LANES = 18;
+  public static final int MAX_ENTRIES_4_LANES = 20;
   private List<Participant> participants = new ArrayList<Participant>();
   private int numberOfLanes;
   private int numberOfParticipants;
@@ -23,16 +26,18 @@ public class Repechage implements Serializable {
           numberOfEntries = 4;
         else if(numberOfParticipants <= 8)
           numberOfEntries = 8;
-        else numberOfEntries = 16;
+        else numberOfEntries = MAX_ENTRIES_2_LANES;
         break;
       case 3:
         numberOfEntries = ((numberOfParticipants + 2) / 3) * 3;
+        numberOfEntries = (numberOfEntries > MAX_ENTRIES_3_LANES) ? MAX_ENTRIES_3_LANES : numberOfEntries;
         break;
       case 4:
         if(numberOfParticipants <= 12)
           numberOfEntries = ((numberOfParticipants + 1 ) / 2) * 2;
         else
           numberOfEntries = ((numberOfParticipants + 3) / 4) * 4;
+        numberOfEntries = (numberOfEntries > MAX_ENTRIES_4_LANES) ? MAX_ENTRIES_4_LANES : numberOfEntries;
         break;
     }
     return numberOfEntries;

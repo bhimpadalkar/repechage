@@ -11,5 +11,9 @@
   <string name="ok">OK</string>
   <string name="winner">Select Winner:</string>
   <string name="next">Next</string>
+  <string name="invalid_lanes_error">Number of lanes should be 2, 3 or 4</string>
+  <string name="empty_lanes_entries_data">Number of lanes or entries cannot be empty.</string>
+  <string name="num_of_entries">No. of entries :</string>
+  <string name="num_of_lanes">No. of lanes :</string>
 
 </resources>
