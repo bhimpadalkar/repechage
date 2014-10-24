@@ -12,7 +12,9 @@
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:id="@+id/participant_entry"
-      android:divider="@android:color/white">
+      android:divider="@android:color/white"
+      android:focusable="false"
+      android:descendantFocusability="afterDescendants">
   </ListView>
 
 </LinearLayout>
