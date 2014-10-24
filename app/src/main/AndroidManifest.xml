@@ -20,8 +20,7 @@
 
     <activity
         android:name=".ParticipantEntryActivity"
-        android:label="@string/participants_activity_label"
-        android:windowSoftInputMode="adjustPan">
+        android:label="@string/participants_activity_label">
     </activity>
 
     <activity
