@@ -99,7 +99,7 @@ public class RoundDetailsActivity extends Activity{
       String winnerName = (String) roundDetailsAdapter.getItem(i);
       Participant winner = repechage.getParticipantByName(winnerName);
       if(winner != null){
-        race.declareResult(winner);
+        race.declareResult(winner, roundType);
       }
     }
     if((roundType != HEAT) && (roundType != SEMI_FINAL)) repechage.eliminateLosers();

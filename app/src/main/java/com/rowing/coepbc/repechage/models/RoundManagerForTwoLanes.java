@@ -43,7 +43,9 @@ public class RoundManagerForTwoLanes extends CommonRoundManager implements Round
       if(participantsByPoints != null && participantsByPoints.size() >= 4)
         participants.addAll(participantsByPoints);
     }
-    return getRacesAlternately(participants, "C");
+    if(participants.size() == 4)
+      return getRacesAlternately(participants, "C");
+    return getRacesSequentially(participants, "C");
   }
 
   private List<Race> getRacesForSemiFinal() {

@@ -16,12 +16,15 @@ public class Race implements Serializable{
     return participantsForRace;
   }
 
-  public void declareResult(Participant winner) {
+  public void declareResult(Participant winner, RoundType roundType) {
     for (Participant participant : participantsForRace) {
       if(participant.getName().equals(winner.getName())){
         participant.setRaceStatus(ParticipantStatus.WINNER);
+        participant.addPoints(1);
       } else {
         participant.setRaceStatus(ParticipantStatus.LOSER);
+        participant.reduceChancesRemaining();
+        if(roundType != RoundType.REPECHAGE) participant.addPoints(-1);
       }
     }
   }

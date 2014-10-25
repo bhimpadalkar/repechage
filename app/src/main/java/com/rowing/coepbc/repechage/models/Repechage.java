@@ -76,7 +76,7 @@ public class Repechage implements Serializable {
   public List<Participant> getParticipantsByPoints(int points) {
     List<Participant> participantList = new ArrayList<Participant>();
     for (Participant participant : participants) {
-      if (participant.points() == points) {
+      if (participant.points() == points && participant.getRaceStatus() != ParticipantStatus.ELIMINATED) {
         participantList.add(participant);
       }
     }
@@ -103,7 +103,7 @@ public class Repechage implements Serializable {
 
   public void eliminateLosers() {
     for (Participant participant : participants) {
-      if (participant.points() < 0) {
+      if (participant.chancesRemaining() <= 0) {
         participant.setRaceStatus(ParticipantStatus.ELIMINATED);
       }
     }
