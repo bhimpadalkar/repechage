@@ -32,4 +32,20 @@ public class Race implements Serializable{
   public String getRaceID() {
     return raceID;
   }
+
+  public Participant getWinner() {
+    for (Participant participant : participantsForRace) {
+      if(participant.getRaceStatus() == ParticipantStatus.WINNER)
+        return participant;
+    }
+    return null;
+  }
+
+  public Participant getLoser() {
+    for (Participant participant : participantsForRace) {
+      if(participant.getRaceStatus() != ParticipantStatus.WINNER)
+        return participant;
+    }
+    return null;
+  }
 }

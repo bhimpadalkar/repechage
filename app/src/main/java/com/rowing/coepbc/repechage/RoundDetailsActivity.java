@@ -27,6 +27,9 @@ import static com.rowing.coepbc.repechage.models.RoundType.SEMI_FINAL;
 public class RoundDetailsActivity extends Activity{
 
   public static final String ROUND_TYPE = "round_type";
+  public static final String GOLD_WINNER = "GOLD_WINNER";
+  public static final String SILVER_WINNER = "SILVER_WINNER";
+  public static final String BRONZE_WINNER = "BRONZE_WINNER";
   private RoundDetailsAdapter roundDetailsAdapter;
   private List<Race> racesForRound;
   private Repechage repechage;
@@ -70,8 +73,11 @@ public class RoundDetailsActivity extends Activity{
   }
 
   public void proceedForNextRound(View view) {
-    if(roundType == FINAL) return;
     saveRaceResult();
+    if(roundType == FINAL){
+      declareFinalResult();
+      return;
+    }
 
     RoundType typeOfNextRound;
     switch (roundType){
@@ -102,7 +108,21 @@ public class RoundDetailsActivity extends Activity{
         race.declareResult(winner, roundType);
       }
     }
-    if((roundType != HEAT) && (roundType != SEMI_FINAL)) repechage.eliminateLosers();
+    if((roundType == REPECHAGE_FIRST) || (roundType == REPECHAGE)) repechage.eliminateLosers();
     repechage.updateParticipants();
+  }
+
+  private void declareFinalResult() {
+    Race raceForGold = racesForRound.get(0);
+    Race raceForBronze = racesForRound.get(1);
+    Participant goldWinner = raceForGold.getWinner();
+    Participant silverWinner = raceForGold.getLoser();
+    Participant bronzeWinner = raceForBronze.getWinner();
+
+    Intent intent = new Intent(this, FinalResultActivity.class);
+    intent.putExtra(GOLD_WINNER, goldWinner);
+    intent.putExtra(SILVER_WINNER, silverWinner);
+    intent.putExtra(BRONZE_WINNER, bronzeWinner);
+    startActivity(intent);
   }
 }

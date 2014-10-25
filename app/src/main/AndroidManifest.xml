@@ -28,6 +28,11 @@
         android:label="@string/round_details">
     </activity>
 
+    <activity
+        android:name=".FinalResultActivity"
+        android:label="@string/result">
+    </activity>
+
   </application>
 
 </manifest>
