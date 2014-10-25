@@ -1,7 +1,9 @@
 package com.rowing.coepbc.repechage;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.TextView;
 
 import com.rowing.coepbc.repechage.models.Participant;
@@ -17,5 +19,11 @@ public class FinalResultActivity extends Activity{
     ((TextView)findViewById(R.id.gold_winner)).setText(goldWinner.getName());
     ((TextView)findViewById(R.id.silver_winner)).setText(silverWinner.getName());
     ((TextView)findViewById(R.id.bronze_winner)).setText(bronzeWinner.getName());
+  }
+
+  public void startNew(View view) {
+    Intent intent = new Intent(this, MainActivity.class);
+    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+    startActivity(intent);
   }
 }

@@ -77,4 +77,9 @@
 
   </LinearLayout>
 
+  <Button
+      style="@style/button_style"
+      android:text="@string/start_new"
+      android:onClick="startNew"/>
+
 </LinearLayout>
