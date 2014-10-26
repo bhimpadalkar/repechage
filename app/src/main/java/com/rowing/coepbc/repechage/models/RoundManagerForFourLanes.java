@@ -4,6 +4,7 @@ import java.util.List;
 
 public class RoundManagerForFourLanes extends CommonRoundManager implements RoundManager {
 
+  public static final int NUMBER_OF_LANES = 4;
   private Repechage repechage;
 
   public RoundManagerForFourLanes(Repechage repechage) {
@@ -13,6 +14,6 @@ public class RoundManagerForFourLanes extends CommonRoundManager implements Roun
 
   @Override
   public List<Race> getRacesForRound(RoundType roundType) {
-    return super.getRacesForFirstRound();
+    return super.getRacesForFirstRound(NUMBER_OF_LANES);
   }
 }

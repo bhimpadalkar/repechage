@@ -6,6 +6,7 @@ import java.util.List;
 
 public class RoundManagerForTwoLanes extends CommonRoundManager implements RoundManager {
 
+  private static final int NUMBER_OF_LANES = 2;
   private Repechage repechage;
 
   public RoundManagerForTwoLanes(Repechage repechage) {
@@ -17,7 +18,7 @@ public class RoundManagerForTwoLanes extends CommonRoundManager implements Round
   public List<Race> getRacesForRound(RoundType roundType) {
     switch (roundType){
       case HEAT:
-        return getRacesForFirstRound();
+        return getRacesForFirstRound(NUMBER_OF_LANES);
       case REPECHAGE_FIRST:
         return getRacesForFirstRepechage();
       case REPECHAGE:
@@ -33,7 +34,7 @@ public class RoundManagerForTwoLanes extends CommonRoundManager implements Round
     List<Participant> participants = new ArrayList<Participant>();
     participants.addAll(repechage.getParticipantsByStatus(ParticipantStatus.WINNER));
     participants.addAll(repechage.getParticipantsByStatus(ParticipantStatus.LOSER));
-    return getRacesSequentially(participants, "B");
+    return getRacesSequentially(participants, "B", NUMBER_OF_LANES);
   }
 
   private List<Race> getRacesForRepechage() {
@@ -45,7 +46,7 @@ public class RoundManagerForTwoLanes extends CommonRoundManager implements Round
     }
     if(participants.size() == 4)
       return getRacesAlternately(participants, "C");
-    return getRacesSequentially(participants, "C");
+    return getRacesSequentially(participants, "C", NUMBER_OF_LANES);
   }
 
   private List<Race> getRacesForSemiFinal() {
