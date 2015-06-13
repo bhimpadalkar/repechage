@@ -40,10 +40,8 @@ public class ParticipantsArrayAdapter<T> extends ArrayAdapter {
 
   @Override
   public View getView(final int position, View convertView, ViewGroup parent) {
-    if(convertView == null){
-      convertView = ((Activity)parent.getContext()).getLayoutInflater()
+    convertView = ((Activity)parent.getContext()).getLayoutInflater()
           .inflate(single_participant_entry_layout, null);
-    }
     ((TextView)convertView.findViewById(R.id.participant_entry_index)).setText(String.format("%d. ", position + 1));
     EditText nameView = (EditText) convertView.findViewById(R.id.participant_name);
     nameView.setText(participantsList.get(position));

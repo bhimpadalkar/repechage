@@ -49,10 +49,8 @@ public class RoundDetailsAdapter extends BaseAdapter {
 
   @Override
   public View getView(final int position, View convertView, ViewGroup parent) {
-    if(convertView == null){
-      convertView = ((Activity)parent.getContext()).getLayoutInflater()
+    convertView = ((Activity)parent.getContext()).getLayoutInflater()
           .inflate(race_detail_layout, null);
-    }
     ((TextView)convertView.findViewById(R.id.race_number)).setText("Race " + races.get(position).getRaceID());
 
     List<String> nameOfParticipants = getNameOfParticipants(races.get(position).getParticipantsForRace());
