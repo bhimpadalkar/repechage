@@ -57,7 +57,7 @@ public class RoundDetailsActivity extends Activity{
     RoundManager roundManager = decideRoundManagerType();
     racesForRound = roundManager.getRacesForRound(roundType);
     ListView roundDetailsView = (ListView) findViewById(R.id.round_detail);
-    roundDetailsAdapter = new RoundDetailsAdapter(this, R.layout.race_detail_layout, racesForRound);
+    roundDetailsAdapter = new RoundDetailsAdapter(this, R.layout.race_detail_layout, racesForRound, repechage.getNumberOfLanes());
     roundDetailsView.setAdapter(roundDetailsAdapter);
   }
 
