@@ -23,17 +23,12 @@ public class RoundDetailsAdapter extends BaseAdapter {
   private int race_detail_layout;
   private List<Race> races;
   private int numberOfLanes;
-  private List<String> winnersList = new ArrayList<String>();
 
   public RoundDetailsAdapter(Context context, int race_detail_layout, List<Race> races, int numberOfLanes) {
     this.context = context;
     this.race_detail_layout = race_detail_layout;
     this.races = races;
     this.numberOfLanes = numberOfLanes;
-    for (Race race : races) {
-      winnersList.add(race.getParticipantsForRace().get(0).getName());
-    }
-
   }
 
   @Override
@@ -43,7 +38,7 @@ public class RoundDetailsAdapter extends BaseAdapter {
 
   @Override
   public Object getItem(int position) {
-    return winnersList.get(position);
+    return races.get(position);
   }
 
   @Override
@@ -55,29 +50,33 @@ public class RoundDetailsAdapter extends BaseAdapter {
   public View getView(final int position, View convertView, ViewGroup parent) {
     LayoutInflater layoutInflater = ((Activity) parent.getContext()).getLayoutInflater();
     convertView = layoutInflater
-          .inflate(race_detail_layout, null);
+        .inflate(race_detail_layout, null);
     ((TextView)convertView.findViewById(R.id.race_number)).setText("Race " + races.get(position).getRaceID());
 
     List<String> nameOfParticipants = getNameOfParticipants(races.get(position).getParticipantsForRace());
     ((TextView)convertView.findViewById(R.id.race_details)).setText(getRaceDetail(nameOfParticipants));
 
-    ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(context, android.R.layout.simple_spinner_item, nameOfParticipants);
+    ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(context, android.R.layout.simple_spinner_item, nameOfParticipants);
     arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
     LinearLayout winnerListLayout = (LinearLayout) convertView.findViewById(R.id.winner_list);
-    for (int i = 0; i < numberOfLanes-1 ; i++) {
+
+    for (int winnerPosition = 0; winnerPosition < numberOfLanes ; winnerPosition++) {
       View winnerListItem = layoutInflater.inflate(R.layout.race_winner_list_item, winnerListLayout, false);
       Spinner winnerDropDown = (Spinner) winnerListItem.findViewById(R.id.select_winner_dropdown);
       winnerDropDown.setAdapter(arrayAdapter);
+      final int finalWinnerPosition = winnerPosition;
       winnerDropDown.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
         @Override
         public void onItemSelected(AdapterView<?> parent, View view, int i, long id) {
-          winnersList.set(position, parent.getSelectedItem().toString());
+          String participantName = parent.getSelectedItem().toString();
+          races.get(position).setRankForParticipant(participantName, finalWinnerPosition);
         }
         @Override
         public void onNothingSelected(AdapterView<?> parent) {
         }
       });
-      ((TextView)winnerListItem.findViewById(R.id.position_title)).setText("Position " + (i+1));
+      winnerDropDown.setSelection(winnerPosition);
+      ((TextView)winnerListItem.findViewById(R.id.position_title)).setText("Position " + (winnerPosition + 1));
       winnerListLayout.addView(winnerListItem);
     }
     return convertView;

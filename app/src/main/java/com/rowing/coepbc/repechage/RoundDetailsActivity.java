@@ -100,13 +100,8 @@ public class RoundDetailsActivity extends Activity{
   }
 
   private void saveRaceResult() {
-    for (int i = 0; i < racesForRound.size(); i++) {
-      Race race = racesForRound.get(i);
-      String winnerName = (String) roundDetailsAdapter.getItem(i);
-      Participant winner = repechage.getParticipantByName(winnerName);
-      if(winner != null){
-        race.declareResult(winner, roundType);
-      }
+    for (Race race : racesForRound) {
+      race.declareResult(roundType);
     }
     if((roundType == REPECHAGE_FIRST) || (roundType == REPECHAGE)) repechage.eliminateLosers();
     repechage.updateParticipants();

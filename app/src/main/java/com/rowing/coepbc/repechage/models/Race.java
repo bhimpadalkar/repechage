@@ -16,13 +16,11 @@ public class Race implements Serializable{
     return participantsForRace;
   }
 
-  public void declareResult(Participant winner, RoundType roundType) {
+  public void declareResult(RoundType roundType) {
     for (Participant participant : participantsForRace) {
-      if(participant.getName().equals(winner.getName())){
-        participant.setRankInRace(0);
+      if(participant.getRankInRace() == 0){
         participant.addPoints(1);
       } else {
-        participant.setRankInRace(1);
         participant.reduceChancesRemaining();
         if(roundType != RoundType.REPECHAGE) participant.addPoints(-1);
       }
@@ -47,5 +45,14 @@ public class Race implements Serializable{
         return participant;
     }
     return null;
+  }
+
+  public void setRankForParticipant(String participantName, int rank) {
+    for (Participant participant : participantsForRace) {
+      if(participant.getName().equals(participantName)){
+        participant.setRankInRace(rank);
+        return;
+      }
+    }
   }
 }
