@@ -19,7 +19,6 @@ import com.rowing.coepbc.repechage.models.RoundType;
 import java.util.List;
 
 import static com.rowing.coepbc.repechage.models.RoundType.FINAL;
-import static com.rowing.coepbc.repechage.models.RoundType.HEAT;
 import static com.rowing.coepbc.repechage.models.RoundType.REPECHAGE;
 import static com.rowing.coepbc.repechage.models.RoundType.REPECHAGE_FIRST;
 import static com.rowing.coepbc.repechage.models.RoundType.SEMI_FINAL;

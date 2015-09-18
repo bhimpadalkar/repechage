@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class RoundManagerForTwoLanes extends CommonRoundManager implements RoundManager {
+public class RoundManagerForTwoLanes extends RoundManager {
 
   private static final int NUMBER_OF_LANES = 2;
   private Repechage repechage;

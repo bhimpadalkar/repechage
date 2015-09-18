@@ -2,7 +2,7 @@ package com.rowing.coepbc.repechage.models;
 
 import java.util.List;
 
-public class RoundManagerForThreeLanes extends CommonRoundManager implements RoundManager {
+public class RoundManagerForThreeLanes extends RoundManager {
 
   private static final int NUMBER_OF_LANES = 3;
   private Repechage repechage;
