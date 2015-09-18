@@ -4,24 +4,18 @@ import java.io.Serializable;
 
 public class Participant implements Serializable{
   private String name;
-  private ParticipantStatus raceStatus;
+  private boolean isEliminated;
+  private int rankInRace;
   private int points = 0;
   private int chancesRemaining = 2;
 
   public Participant(String name) {
     this.name = name;
+    this.isEliminated = false;
   }
 
   public String getName() {
     return name;
-  }
-
-  public void setRaceStatus(ParticipantStatus raceStatus) {
-    this.raceStatus = raceStatus;
-  }
-
-  public ParticipantStatus getRaceStatus() {
-    return raceStatus;
   }
 
   public int points() {
@@ -38,5 +32,21 @@ public class Participant implements Serializable{
 
   public void reduceChancesRemaining() {
     chancesRemaining--;
+  }
+
+  public int getRankInRace() {
+    return rankInRace;
+  }
+
+  public void setRankInRace(int rankInRace) {
+    this.rankInRace = rankInRace;
+  }
+
+  public boolean isEliminated() {
+    return isEliminated;
+  }
+
+  public void setIsEliminated(boolean isEliminated) {
+    this.isEliminated = isEliminated;
   }
 }

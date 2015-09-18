@@ -19,10 +19,10 @@ public class Race implements Serializable{
   public void declareResult(Participant winner, RoundType roundType) {
     for (Participant participant : participantsForRace) {
       if(participant.getName().equals(winner.getName())){
-        participant.setRaceStatus(ParticipantStatus.WINNER);
+        participant.setRankInRace(0);
         participant.addPoints(1);
       } else {
-        participant.setRaceStatus(ParticipantStatus.LOSER);
+        participant.setRankInRace(1);
         participant.reduceChancesRemaining();
         if(roundType != RoundType.REPECHAGE) participant.addPoints(-1);
       }
@@ -35,7 +35,7 @@ public class Race implements Serializable{
 
   public Participant getWinner() {
     for (Participant participant : participantsForRace) {
-      if(participant.getRaceStatus() == ParticipantStatus.WINNER)
+      if(participant.getRankInRace() == 0)
         return participant;
     }
     return null;
@@ -43,7 +43,7 @@ public class Race implements Serializable{
 
   public Participant getLoser() {
     for (Participant participant : participantsForRace) {
-      if(participant.getRaceStatus() != ParticipantStatus.WINNER)
+      if(participant.getRankInRace() != 0)
         return participant;
     }
     return null;

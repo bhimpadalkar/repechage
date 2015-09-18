@@ -63,20 +63,30 @@ public class Repechage implements Serializable {
     return null;
   }
 
-  public List<Participant> getParticipantsByStatus(ParticipantStatus participantStatus) {
+  public List<Participant> getParticipantsByPoints(int points) {
     List<Participant> participantList = new ArrayList<Participant>();
     for (Participant participant : participants) {
-      if (participant.getRaceStatus().equals(participantStatus)) {
+      if (participant.points() == points && !participant.isEliminated()) {
         participantList.add(participant);
       }
     }
     return participantList;
   }
 
-  public List<Participant> getParticipantsByPoints(int points) {
+  public List<Participant> getParticipantsByRank(int rank) {
     List<Participant> participantList = new ArrayList<Participant>();
     for (Participant participant : participants) {
-      if (participant.points() == points && participant.getRaceStatus() != ParticipantStatus.ELIMINATED) {
+      if (participant.getRankInRace() == rank && !participant.isEliminated()) {
+        participantList.add(participant);
+      }
+    }
+    return participantList;
+  }
+
+  public List<Participant> getEliminatedParticipants() {
+    List<Participant> participantList = new ArrayList<Participant>();
+    for (Participant participant : participants) {
+      if (participant.isEliminated()) {
         participantList.add(participant);
       }
     }
@@ -86,7 +96,7 @@ public class Repechage implements Serializable {
   public int getNumberOfParticipantsRemaining() {
     int remainingParticipants = 0;
     for (Participant participant : participants) {
-      if (!participant.getRaceStatus().equals(ParticipantStatus.ELIMINATED)) {
+      if (!participant.isEliminated()) {
         remainingParticipants++;
       }
     }
@@ -94,17 +104,17 @@ public class Repechage implements Serializable {
   }
 
   public void updateParticipants() {
-    List<Participant> newListOfParticipants = new ArrayList<Participant>();
-    newListOfParticipants.addAll(getParticipantsByStatus(ParticipantStatus.WINNER));
-    newListOfParticipants.addAll(getParticipantsByStatus(ParticipantStatus.LOSER));
-    newListOfParticipants.addAll(getParticipantsByStatus(ParticipantStatus.ELIMINATED));
+    List<Participant> newListOfParticipants = new ArrayList<>();
+    newListOfParticipants.addAll(getParticipantsByRank(0));
+    newListOfParticipants.addAll(getParticipantsByRank(1));
+    newListOfParticipants.addAll(getEliminatedParticipants());
     this.participants = newListOfParticipants;
   }
 
   public void eliminateLosers() {
     for (Participant participant : participants) {
       if (participant.chancesRemaining() <= 0) {
-        participant.setRaceStatus(ParticipantStatus.ELIMINATED);
+        participant.setIsEliminated(true);
       }
     }
   }

@@ -32,8 +32,8 @@ public class RoundManagerForTwoLanes extends CommonRoundManager implements Round
 
   private List<Race> getRacesForFirstRepechage() {
     List<Participant> participants = new ArrayList<Participant>();
-    participants.addAll(repechage.getParticipantsByStatus(ParticipantStatus.WINNER));
-    participants.addAll(repechage.getParticipantsByStatus(ParticipantStatus.LOSER));
+    participants.addAll(repechage.getParticipantsByRank(0));
+    participants.addAll(repechage.getParticipantsByRank(1));
     return getRacesSequentially(participants, "B", NUMBER_OF_LANES);
   }
 
@@ -52,8 +52,8 @@ public class RoundManagerForTwoLanes extends CommonRoundManager implements Round
   private List<Race> getRacesForSemiFinal() {
     List<Race> races = new ArrayList<Race>();
     List<Participant> participants = new ArrayList<Participant>();
-    participants.addAll(repechage.getParticipantsByStatus(ParticipantStatus.WINNER));
-    participants.addAll(repechage.getParticipantsByStatus(ParticipantStatus.LOSER));
+    participants.addAll(repechage.getParticipantsByRank(0));
+    participants.addAll(repechage.getParticipantsByRank(1));
     races.add(new Race("SF1", Arrays.asList(participants.get(0), participants.get(3))));
     races.add(new Race("SF2", Arrays.asList(participants.get(1), participants.get(2))));
     return races;
@@ -61,8 +61,8 @@ public class RoundManagerForTwoLanes extends CommonRoundManager implements Round
 
   private List<Race> getRacesForFinal() {
     List<Race> races = new ArrayList<Race>();
-    races.add(new Race("F1", repechage.getParticipantsByStatus(ParticipantStatus.WINNER)));
-    races.add(new Race("F2", repechage.getParticipantsByStatus(ParticipantStatus.LOSER)));
+    races.add(new Race("F1", repechage.getParticipantsByRank(0)));
+    races.add(new Race("F2", repechage.getParticipantsByRank(1)));
     return races;
   }
 }
