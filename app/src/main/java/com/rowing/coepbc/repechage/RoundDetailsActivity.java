@@ -10,6 +10,7 @@ import android.widget.TextView;
 import com.rowing.coepbc.repechage.models.Participant;
 import com.rowing.coepbc.repechage.models.Race;
 import com.rowing.coepbc.repechage.models.Repechage;
+import com.rowing.coepbc.repechage.models.Round;
 import com.rowing.coepbc.repechage.models.RoundManager;
 import com.rowing.coepbc.repechage.models.RoundManagerForFourLanes;
 import com.rowing.coepbc.repechage.models.RoundManagerForThreeLanes;
@@ -29,10 +30,12 @@ public class RoundDetailsActivity extends Activity{
   public static final String GOLD_WINNER = "GOLD_WINNER";
   public static final String SILVER_WINNER = "SILVER_WINNER";
   public static final String BRONZE_WINNER = "BRONZE_WINNER";
-  private RoundDetailsAdapter roundDetailsAdapter;
-  private List<Race> racesForRound;
+  private static final String ROUND_NAME = "next_round_name";
+
   private Repechage repechage;
   private RoundType roundType;
+  private RoundManager roundManager;
+  private Round round;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -53,10 +56,11 @@ public class RoundDetailsActivity extends Activity{
   }
 
   private void populateRoundDetails() {
-    RoundManager roundManager = decideRoundManagerType();
-    racesForRound = roundManager.getRacesForRound(roundType);
+    roundManager = decideRoundManagerType();
+    char roundName = getIntent().getCharExtra(ROUND_NAME, 'A');
+    round = roundManager.getRound(roundType, roundName);
     ListView roundDetailsView = (ListView) findViewById(R.id.round_detail);
-    roundDetailsAdapter = new RoundDetailsAdapter(this, R.layout.race_detail_layout, racesForRound, repechage.getNumberOfLanes());
+    RoundDetailsAdapter roundDetailsAdapter = new RoundDetailsAdapter(this, R.layout.race_detail_layout, round, repechage.getNumberOfLanes());
     roundDetailsView.setAdapter(roundDetailsAdapter);
   }
 
@@ -72,7 +76,7 @@ public class RoundDetailsActivity extends Activity{
   }
 
   public void proceedForNextRound(View view) {
-    saveRaceResult();
+    roundManager.declareResultForRound(round);
     if(roundType == FINAL){
       declareFinalResult();
       return;
@@ -95,18 +99,12 @@ public class RoundDetailsActivity extends Activity{
     Intent intent = new Intent(this, RoundDetailsActivity.class);
     intent.putExtra(MainActivity.REPECHAGE_DATA, repechage);
     intent.putExtra(ROUND_TYPE, typeOfNextRound);
+    intent.putExtra(ROUND_NAME, (char)(round.name+1));
     startActivity(intent);
   }
 
-  private void saveRaceResult() {
-    for (Race race : racesForRound) {
-      race.declareResult(roundType);
-    }
-    if((roundType == REPECHAGE_FIRST) || (roundType == REPECHAGE)) repechage.eliminateLosers();
-    repechage.updateParticipants();
-  }
-
   private void declareFinalResult() {
+    List<Race> racesForRound = round.races;
     Race raceForGold = racesForRound.get(0);
     Race raceForBronze = racesForRound.get(1);
     Participant goldWinner = raceForGold.getWinner();

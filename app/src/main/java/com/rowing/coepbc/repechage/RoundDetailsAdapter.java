@@ -14,20 +14,23 @@ import android.widget.TextView;
 
 import com.rowing.coepbc.repechage.models.Participant;
 import com.rowing.coepbc.repechage.models.Race;
+import com.rowing.coepbc.repechage.models.Round;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class RoundDetailsAdapter extends BaseAdapter {
+  private final char roundName;
   private Context context;
   private int race_detail_layout;
   private List<Race> races;
   private int numberOfLanes;
 
-  public RoundDetailsAdapter(Context context, int race_detail_layout, List<Race> races, int numberOfLanes) {
+  public RoundDetailsAdapter(Context context, int race_detail_layout, Round round, int numberOfLanes) {
     this.context = context;
     this.race_detail_layout = race_detail_layout;
-    this.races = races;
+    this.races = round.races;
+    this.roundName = round.name;
     this.numberOfLanes = numberOfLanes;
   }
 
@@ -51,7 +54,7 @@ public class RoundDetailsAdapter extends BaseAdapter {
     LayoutInflater layoutInflater = ((Activity) parent.getContext()).getLayoutInflater();
     convertView = layoutInflater
         .inflate(race_detail_layout, null);
-    ((TextView)convertView.findViewById(R.id.race_number)).setText("Race " + races.get(position).getRaceID());
+    ((TextView)convertView.findViewById(R.id.race_number)).setText("Race " + roundName + (position+1));
 
     List<String> nameOfParticipants = getNameOfParticipants(races.get(position).getParticipantsForRace());
     ((TextView)convertView.findViewById(R.id.race_details)).setText(getRaceDetail(nameOfParticipants));

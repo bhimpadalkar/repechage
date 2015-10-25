@@ -1,7 +1,5 @@
 package com.rowing.coepbc.repechage.models;
 
-import java.util.List;
-
 public class RoundManagerForThreeLanes extends RoundManager {
 
   private static final int NUMBER_OF_LANES = 3;
@@ -13,7 +11,7 @@ public class RoundManagerForThreeLanes extends RoundManager {
   }
 
   @Override
-  public List<Race> getRacesForRound(RoundType roundType) {
-    return super.getRacesForFirstRound(NUMBER_OF_LANES);
+  public Round getRound(RoundType roundType, char roundName) {
+    return new Round(super.getRacesForFirstRound(NUMBER_OF_LANES), 'A', RoundType.HEAT);
   }
 }

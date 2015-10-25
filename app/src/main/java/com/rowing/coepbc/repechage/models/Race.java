@@ -4,11 +4,9 @@ import java.io.Serializable;
 import java.util.List;
 
 public class Race implements Serializable{
-  private String raceID;
   private List<Participant> participantsForRace;
 
-  public Race(String raceID, List<Participant> participantsForRace) {
-    this.raceID = raceID;
+  public Race(List<Participant> participantsForRace) {
     this.participantsForRace = participantsForRace;
   }
 
@@ -25,10 +23,6 @@ public class Race implements Serializable{
         if(roundType != RoundType.REPECHAGE) participant.addPoints(-1);
       }
     }
-  }
-
-  public String getRaceID() {
-    return raceID;
   }
 
   public Participant getWinner() {
@@ -53,6 +47,12 @@ public class Race implements Serializable{
         participant.setRankInRace(rank);
         return;
       }
+    }
+  }
+
+  public void updateLastPlayedRaceName(char roundName, int raceIndex) {
+    for (Participant participant : participantsForRace) {
+      participant.setLastPlayedRaceName(String.valueOf(roundName) + (raceIndex + 1));
     }
   }
 }

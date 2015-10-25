@@ -8,6 +8,7 @@ public class Participant implements Serializable{
   private int rankInRace;
   private int points = 0;
   private int chancesRemaining = 2;
+  private String lastPlayedRaceName;
 
   public Participant(String name) {
     this.name = name;
@@ -48,5 +49,13 @@ public class Participant implements Serializable{
 
   public void setIsEliminated(boolean isEliminated) {
     this.isEliminated = isEliminated;
+  }
+
+  public void setLastPlayedRaceName(String lastPlayedRaceName) {
+    this.lastPlayedRaceName = lastPlayedRaceName;
+  }
+
+  public String getLastPlayedRaceName() {
+    return lastPlayedRaceName;
   }
 }

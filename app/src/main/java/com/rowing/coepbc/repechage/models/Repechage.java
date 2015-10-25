@@ -3,6 +3,8 @@ package com.rowing.coepbc.repechage.models;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class Repechage implements Serializable {
@@ -80,6 +82,12 @@ public class Repechage implements Serializable {
         participantList.add(participant);
       }
     }
+    Collections.sort(participantList, new Comparator<Participant>() {
+      @Override
+      public int compare(Participant lhs, Participant rhs) {
+        return lhs.getLastPlayedRaceName().compareTo(rhs.getLastPlayedRaceName());
+      }
+    });
     return participantList;
   }
 
