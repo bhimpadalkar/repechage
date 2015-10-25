@@ -4,14 +4,17 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import static com.rowing.coepbc.repechage.models.RoundType.FINAL;
+import static com.rowing.coepbc.repechage.models.RoundType.REPECHAGE;
+import static com.rowing.coepbc.repechage.models.RoundType.REPECHAGE_FIRST;
+import static com.rowing.coepbc.repechage.models.RoundType.SEMI_FINAL;
+
 public class RoundManagerForTwoLanes extends RoundManager {
 
   private static final int NUMBER_OF_LANES = 2;
-  private Repechage repechage;
 
   public RoundManagerForTwoLanes(Repechage repechage) {
     super(repechage);
-    this.repechage = repechage;
   }
 
   @Override
@@ -27,6 +30,19 @@ public class RoundManagerForTwoLanes extends RoundManager {
         return new Round(getRacesForSemiFinal(), roundName, RoundType.SEMI_FINAL);
       default:
         return new Round(getRacesForFinal(), roundName, RoundType.FINAL);
+    }
+  }
+
+  @Override
+  public RoundType decideTypeOfNextRound(RoundType typeOfCurrentRound) {
+    switch (typeOfCurrentRound){
+      case HEAT:
+        return repechage.getNumberOfParticipantsRemaining() == 4 ? SEMI_FINAL : REPECHAGE_FIRST;
+      case REPECHAGE_FIRST:
+      case REPECHAGE:
+        return repechage.getNumberOfParticipantsRemaining() == 4 ? SEMI_FINAL : REPECHAGE;
+      default:
+        return FINAL;
     }
   }
 

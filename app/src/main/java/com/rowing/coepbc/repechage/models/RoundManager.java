@@ -8,7 +8,7 @@ import static com.rowing.coepbc.repechage.models.RoundType.REPECHAGE;
 import static com.rowing.coepbc.repechage.models.RoundType.REPECHAGE_FIRST;
 
 public abstract class RoundManager {
-  private Repechage repechage;
+  protected Repechage repechage;
 
   public RoundManager(Repechage repechage) {
     this.repechage = repechage;
@@ -49,4 +49,6 @@ public abstract class RoundManager {
     if((round.type == REPECHAGE_FIRST) || (round.type == REPECHAGE)) repechage.eliminateLosers();
     repechage.updateParticipants();
   }
+
+  public abstract RoundType decideTypeOfNextRound(RoundType typeOfCurrentRound);
 }

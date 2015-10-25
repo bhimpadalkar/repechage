@@ -82,20 +82,7 @@ public class RoundDetailsActivity extends Activity{
       return;
     }
 
-    RoundType typeOfNextRound;
-    switch (roundType){
-      case HEAT:
-        if(repechage.getNumberOfParticipantsRemaining() == 4) typeOfNextRound = SEMI_FINAL;
-        else typeOfNextRound = REPECHAGE_FIRST;
-        break;
-      case REPECHAGE_FIRST:
-      case REPECHAGE:
-        if(repechage.getNumberOfParticipantsRemaining() == 4) typeOfNextRound = SEMI_FINAL;
-        else typeOfNextRound = REPECHAGE;
-        break;
-      default:
-        typeOfNextRound = FINAL;
-    }
+    RoundType typeOfNextRound = roundManager.decideTypeOfNextRound(roundType);
     Intent intent = new Intent(this, RoundDetailsActivity.class);
     intent.putExtra(MainActivity.REPECHAGE_DATA, repechage);
     intent.putExtra(ROUND_TYPE, typeOfNextRound);
